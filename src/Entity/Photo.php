@@ -27,6 +27,11 @@ class Photo
      */
     private $file;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Restaurant::class, inversedBy="photos")
+     */
+    private $restaurant;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +57,18 @@ class Photo
     public function setFile(string $file): self
     {
         $this->file = $file;
+
+        return $this;
+    }
+
+    public function getRestaurant(): ?Restaurant
+    {
+        return $this->restaurant;
+    }
+
+    public function setRestaurant(?Restaurant $restaurant): self
+    {
+        $this->restaurant = $restaurant;
 
         return $this;
     }
