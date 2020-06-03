@@ -174,5 +174,21 @@ class Restaurant
         return $this;
     }
 
+    public function getAverageRating(){
+
+        $avis = $this->getAvis();
+
+        $totalAvis = 0;
+        $nbAvis = 0;
+
+        foreach ($avis as $avi) {
+            $totalAvis += $avi->getNote();
+            $nbAvis++;
+        }
+
+        if ($nbAvis > 0) { return $totalAvis/$nbAvis; }
+
+        return null;
+    }
     
 }
