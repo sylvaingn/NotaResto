@@ -23,24 +23,18 @@ class Restaurant
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
-    private $adresse;
+    private $description;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="datetime")
      */
-    private $code_postal;
+    private $created_at;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $ville;
+    
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $numero;
+
 
     public function getId(): ?int
     {
@@ -59,51 +53,29 @@ class Restaurant
         return $this;
     }
 
-    public function getAdresse(): ?string
+    public function getDescription(): ?string
     {
-        return $this->adresse;
+        return $this->description;
     }
 
-    public function setAdresse(string $adresse): self
+    public function setDescription(string $description): self
     {
-        $this->adresse = $adresse;
+        $this->description = $description;
 
         return $this;
     }
 
-    public function getCodePostal(): ?int
+    public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->code_postal;
+        return $this->created_at;
     }
 
-    public function setCodePostal(int $code_postal): self
+    public function setCreatedAt(\DateTimeInterface $created_at): self
     {
-        $this->code_postal = $code_postal;
+        $this->created_at = $created_at;
 
         return $this;
     }
 
-    public function getVille(): ?string
-    {
-        return $this->ville;
-    }
-
-    public function setVille(string $ville): self
-    {
-        $this->ville = $ville;
-
-        return $this;
-    }
-
-    public function getNumero(): ?int
-    {
-        return $this->numero;
-    }
-
-    public function setNumero(int $numero): self
-    {
-        $this->numero = $numero;
-
-        return $this;
-    }
+    
 }
