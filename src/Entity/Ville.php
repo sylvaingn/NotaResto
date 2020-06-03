@@ -25,7 +25,7 @@ class Ville
     private $nom;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     private $code_postal;
 
@@ -56,12 +56,12 @@ class Ville
         return $this;
     }
 
-    public function getCodePostal(): ?int
+    public function getCodePostal(): ?string
     {
         return $this->code_postal;
     }
 
-    public function setCodePostal(int $code_postal): self
+    public function setCodePostal(string $code_postal): self
     {
         $this->code_postal = $code_postal;
 
