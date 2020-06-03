@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+
+<div class="jumbotron">
+    <h1 class="display-4">Bienvenue sur NotaResto !</h1>
+    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
+        featured content or information.</p>
+    <hr class="my-4">
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+</div>
+
+
+<div class="album py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            {% for restaurant in restaurants %}
+
+
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <h4 class="card-title">{{restaurant.nom}}</h4>
+                        <h5 class="card-subtitle mb-2 text-muted">{{restaurant.ville}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted"> Créé le : {{restaurant.createdAt|date("d/m/Y")}}</h6>
+
+
+                        <p class="card-text">{{restaurant.description|u.truncate(50, "...")}}</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <a class="btn btn-secondary" href=""role="button">Lien vers article</a>
+                            <a class="btn btn-primary" href="" role="button"><i class="fas fa-pencil-alt"></i></a>
+                            <a class="btn btn-danger" href="" role="button"><i class="far fa-times-circle"></i></a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
