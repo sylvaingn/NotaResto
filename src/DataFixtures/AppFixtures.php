@@ -3,12 +3,21 @@
 namespace App\DataFixtures;
 
 use App\Entity\Restaurant;
+use App\Repository\VilleRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker;
 
-class AppFixtures extends Fixture
+class AppFixtures extends Fixture implements DependentFixtureInterface
 {
+    private $villeRepository;
+
+    public function __construct( VilleRepository $villeRepository)
+    {
+        $this->villeRepository = $villeRepository;
+    }
+    
     public function load(ObjectManager $manager)
     {
 
@@ -21,9 +30,18 @@ class AppFixtures extends Fixture
             $restaurant->setNom($faker->company);
             $restaurant->setDescription($faker->text);
             $restaurant->setCreatedAt($faker->dateTime);
+            $restaurant->setVille($this->villeRepository->find(rand(1,1000)));
+
             $manager->persist($restaurant);
         }
 
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return [
+            VilleFixtures::class,
+        ];
     }
 }
