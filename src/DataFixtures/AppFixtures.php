@@ -16,7 +16,7 @@ class AppFixtures extends Fixture
         $faker = Faker\Factory::create('fr_FR');
 
         // on créé 10 restaurants
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $restaurant = new Restaurant();
             $restaurant->setNom($faker->company);
             $restaurant->setDescription($faker->text);
