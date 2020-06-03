@@ -36,6 +36,17 @@ class RestaurantRepository extends ServiceEntityRepository
     }
     */
 
+
+    public function findTenLast()
+    {
+        return $this->createQueryBuilder('r')
+            ->orderBy('r.created_at', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     /*
     public function findOneBySomeField($value): ?Restaurant
     {
