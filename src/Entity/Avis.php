@@ -40,14 +40,20 @@ class Avis
     private $restaurant;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Avis::class, inversedBy="avis")
+     * @ORM\ManyToOne(targetEntity=Avis::class, inversedBy="enfants")
      */
-    private $avis;
+    private $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Avis::class, mappedBy="parent")
+     */
+    private $enfants;
 
     public function __construct()
     {
-        $this->avis = new ArrayCollection();
+        $this->enfants = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -102,38 +108,48 @@ class Avis
         return $this;
     }
 
-    public function getAvis(): ?self
+    public function getParent(): ?self
     {
-        return $this->avis;
+        return $this->parent;
     }
 
-    public function setAvis(?self $avis): self
+    public function setParent(?self $parent): self
     {
-        $this->avis = $avis;
+        $this->parent = $parent;
 
         return $this;
     }
 
-    public function addAvi(self $avi): self
+    /**
+     * @return Collection|self[]
+     */
+    public function getEnfants(): Collection
     {
-        if (!$this->avis->contains($avi)) {
-            $this->avis[] = $avi;
-            $avi->setAvis($this);
+        return $this->enfants;
+    }
+
+    public function addEnfant(self $enfant): self
+    {
+        if (!$this->enfants->contains($enfant)) {
+            $this->enfants[] = $enfant;
+            $enfant->setParent($this);
         }
 
         return $this;
     }
 
-    public function removeAvi(self $avi): self
+    public function removeEnfant(self $enfant): self
     {
-        if ($this->avis->contains($avi)) {
-            $this->avis->removeElement($avi);
+        if ($this->enfants->contains($enfant)) {
+            $this->enfants->removeElement($enfant);
             // set the owning side to null (unless already changed)
-            if ($avi->getAvis() === $this) {
-                $avi->setAvis(null);
+            if ($enfant->getParent() === $this) {
+                $enfant->setParent(null);
             }
         }
 
         return $this;
     }
+
+
 }
