@@ -36,6 +36,13 @@ class RestaurantRepository extends ServiceEntityRepository
     }
     */
 
+    public function findId()
+    {
+        return $this->createQueryBuilder('r')
+            ->select('r.id')
+            ->getQuery()
+            ->getResult();
+    }
 
     public function findTenLast()
     {
@@ -43,9 +50,39 @@ class RestaurantRepository extends ServiceEntityRepository
             ->orderBy('r.created_at', 'DESC')
             ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
+
+    public function findTenBest2()
+    {
+        return $this->createQueryBuilder('r')
+            ->select('r.nom', 'avg(a.note)')
+            ->innerJoin('Avis', 'a', 'WITH', 'r.id = a.restaurant_id')
+            ->groupBy('r.nom')
+            ->orderBy('avg(a.note)', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findTenBest($restaurants): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT r.nom, AVG(a.note) as moyenne
+            FROM App\Entity\Restaurant r
+            inner join App\Entity\Avis a
+            on r.id = a.restaurant_id
+            GROUP BY r.nom
+            order by moyenne desc
+            limit 10'
+        )->setParameter('restaurants', $restaurants);
+
+        // returns an array of Product objects
+        return $query->getResult();
+    }
+
 
     /*
     public function findOneBySomeField($value): ?Restaurant

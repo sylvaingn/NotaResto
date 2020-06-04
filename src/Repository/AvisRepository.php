@@ -36,6 +36,19 @@ class AvisRepository extends ServiceEntityRepository
     }
     */
 
+    public function findBestTenRatings() {
+
+        return $this->createQueryBuilder('r')
+            ->select('restaurant.id as restaurantId')
+            ->innerJoin('r.restaurant', 'restaurant')
+            ->groupBy('restaurant')
+            ->orderBy('AVG(r.note)', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     /*
     public function findOneBySomeField($value): ?Avis
     {
