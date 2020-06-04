@@ -26,7 +26,7 @@
                         <h4 class="card-title">{{restaurant.nom}}</h4>
                         <h5 class="card-subtitle mb-2 text-muted">{{restaurant.ville.nom}}</h5>
                         <h6 class="card-subtitle mb-2 text-muted"> Créé le : {{restaurant.createdAt|date("d/m/Y")}}</h6>
-                        <h1>{{restaurant.averageRating}} {% if restaurant.averageRating is not null %}/10{% endif %}</h1>
+                        <h1>{{restaurant.averageRating|round(1, 'floor')}} {% if restaurant.averageRating is not null %}/10{% endif %}</h1>
 
 
                         <p class="card-text">{{restaurant.description|u.truncate(50, "...")}}</p>
